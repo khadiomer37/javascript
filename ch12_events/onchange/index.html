@@ -1,0 +1,337 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Geographic Information</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .info-card {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f5f7ff, #eef0ff);
+            border-radius: 15px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .info-card.show {
+            display: block;
+        }
+
+        .country-name {
+            text-align: center;
+            font-size: 28px;
+            color: #4c51bf;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .info-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .emoji {
+            font-size: 22px;
+            margin-right: 8px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🌍 Country Explorer</h1>
+
+        <p class="subtitle">
+            Select a country to view its geographic information
+        </p>
+
+        <label for="country">Choose a country:</label>
+
+        <!-- onchange event -->
+        <select id="country" onchange="showCountryInfo()">
+            <option value="">-- Select a Country --</option>
+            <option value="somalia">Somalia</option>
+            <option value="uk">United Kingdom</option>
+            <option value="usa">United States</option>
+            <option value="canada">Canada</option>
+            <option value="france">France</option>
+            <option value="japan">Japan</option>
+            <option value="australia">Australia</option>
+            <option value="ghana">Ghana</option>
+        </select>
+
+        <!-- Information appears here -->
+        <div id="infoCard" class="info-card">
+
+            <h2 id="countryName" class="country-name"></h2>
+
+            <div class="info-item">
+                <span class="info-label">
+                    <span class="emoji">🏛️</span>
+                    Capital
+                </span>
+                <span id="capital" class="info-value"></span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">
+                    <span class="emoji">👥</span>
+                    Population
+                </span>
+                <span id="population" class="info-value"></span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">
+                    <span class="emoji">🌎</span>
+                    Continent
+                </span>
+                <span id="continent" class="info-value"></span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">
+                    <span class="emoji">🗣️</span>
+                    Language
+                </span>
+                <span id="language" class="info-value"></span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">
+                    <span class="emoji">💰</span>
+                    Currency
+                </span>
+                <span id="currency" class="info-value"></span>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+
+        // Country data
+        const countries = {
+
+            somalia: {
+                name: "Somalia",
+                capital: "Mogadishu",
+                population: "Approximately 15 million",
+                continent: "Africa",
+                language: "Somali & Arabic",
+                currency: "Somali Shilling (S)"
+            },
+
+            uk: {
+                name: "United Kingdom",
+                capital: "London",
+                population: "Approximately 69 million",
+                continent: "Europe",
+                language: "English",
+                currency: "Pound Sterling (£)"
+            },
+
+            usa: {
+                name: "United States",
+                capital: "Washington, D.C.",
+                population: "Approximately 340 million",
+                continent: "North America",
+                language: "English",
+                currency: "US Dollar ($)"
+            },
+
+            canada: {
+                name: "Canada",
+                capital: "Ottawa",
+                population: "Approximately 40 million",
+                continent: "North America",
+                language: "English & French",
+                currency: "Canadian Dollar (C$)"
+            },
+
+            france: {
+                name: "France",
+                capital: "Paris",
+                population: "Approximately 68 million",
+                continent: "Europe",
+                language: "French",
+                currency: "Euro (€)"
+            },
+
+            japan: {
+                name: "Japan",
+                capital: "Tokyo",
+                population: "Approximately 124 million",
+                continent: "Asia",
+                language: "Japanese",
+                currency: "Japanese Yen (¥)"
+            },
+
+            australia: {
+                name: "Australia",
+                capital: "Canberra",
+                population: "Approximately 27 million",
+                continent: "Oceania",
+                language: "English",
+                currency: "Australian Dollar (A$)"
+            },
+
+            ghana: {
+                name: "Ghana",
+                capital: "Accra",
+                population: "Approximately 34 million",
+                continent: "Africa",
+                language: "English",
+                currency: "Ghanaian Cedi (₵)"
+            }
+        };
+
+
+        // This function runs when onchange happens
+        function showCountryInfo() {
+
+            // Get the selected country
+            const selectedCountry =
+                document.getElementById("country").value;
+
+            // Get the information card
+            const infoCard =
+                document.getElementById("infoCard");
+
+
+            // If no country is selected
+            if (selectedCountry === "") {
+
+                infoCard.classList.remove("show");
+
+                return;
+            }
+
+
+            // Get country information
+            const country = countries[selectedCountry];
+
+
+            // Put information into the HTML
+            document.getElementById("countryName").textContent =
+                country.name;
+
+            document.getElementById("capital").textContent =
+                country.capital;
+
+            document.getElementById("population").textContent =
+                country.population;
+
+            document.getElementById("continent").textContent =
+                country.continent;
+
+            document.getElementById("language").textContent =
+                country.language;
+
+            document.getElementById("currency").textContent =
+                country.currency;
+
+
+            // Display the card
+            infoCard.classList.add("show");
+        }
+
+    </script>
+
+</body>
+</html>
+```

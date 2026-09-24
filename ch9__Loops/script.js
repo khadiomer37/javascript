@@ -3,8 +3,17 @@ console.log("nigeria");
 console.log("egypy");
 console.log("kenya");
 console.log("asia");
+for (let counter = 0; counter < 5; counter++) {
+  console.log(counter, "china");
+//   if (counter === 2) {
+//     // break;
+//     continue;
+//   }
+// }
 console.log("japan");
 console.log("india");
+
+
 console.log("europe");
 console.log("france");
 let counter = 0;
@@ -19,10 +28,19 @@ console.log("canada");
 console.log("mexico");
 console.log("south america");
 console.log("brazil");
-console.log("argentina");
-console.log("chile");
 
-for (let index = 0; index < array.length; index++) {
-    const element = array[index];
-    
+for (let counter = 0; counter < 5; counter++) {
+
+  console.log("argentina");
+  if (counter === 1) {
+    break;
+  }
 }
+  
+// let students = ["john", "jane", "doe", "smith", "emily"]; 
+  
+// for(element of students){
+//     console.log(element);
+// }
+
+    

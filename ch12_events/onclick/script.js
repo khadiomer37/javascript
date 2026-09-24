@@ -1,0 +1,3 @@
+function saySalaam() {
+    alert("Assalamualaikum");
+}
